@@ -8,7 +8,7 @@ license = "Apache-2.0"
 keywords = ["istio"]
 homepage = "https://github.com/shenshouer/istio-sdk-rs"
 repository = "https://github.com/shenshouer/istio-sdk-rs"
-documentation = "https://docs.rs/istio-api"
+documentation = "https://docs.rs/istio-sdk"
 readme = "README.md"
 
 [dev-dependencies]
