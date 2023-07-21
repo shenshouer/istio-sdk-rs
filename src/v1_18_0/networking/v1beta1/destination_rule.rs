@@ -21,8 +21,7 @@ use crate::types::PortSelector;
 #[kube(namespaced)]
 pub struct DestinationRuleSpec {
     /// The name of a service from the service registry.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub host: Option<String>,
+    pub host: String,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -47,8 +46,7 @@ pub struct Subsets {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub labels: Option<BTreeMap<String, String>>,
     /// Name of the subset.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     /// Traffic policies that apply to this subset.
     #[serde(
         default,
@@ -288,11 +286,9 @@ pub struct ConsistentHashLB {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct HttpCookie {
     /// Name of the cookie.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     /// Path to set for the cookie.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
+    pub path: String,
     /// Lifetime of the cookie.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ttl: Option<String>,
@@ -478,8 +474,7 @@ pub enum TlsMode {
 /// TLS related settings for connections to the upstream service.
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct ClientTLSSettings {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub mode: Option<TlsMode>,
+    pub mode: TlsMode,
     /// REQUIRED if mode is `MUTUAL`.
     #[serde(
         default,
@@ -530,19 +525,11 @@ pub struct TunnelSettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub protocol: Option<String>,
     /// Specifies a host to which the downstream connection is tunneled.
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        rename = "targetHost"
-    )]
-    pub target_host: Option<String>,
+    #[serde(rename = "targetHost")]
+    pub target_host: String,
     /// Specifies a port to which the downstream connection is tunneled.
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        rename = "targetPort"
-    )]
-    pub target_port: Option<i64>,
+    #[serde(rename = "targetPort")]
+    pub target_port: i32,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]

@@ -162,8 +162,7 @@ pub struct HTTPDirectResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub body: Option<HTTPBody>,
     /// Specifies the HTTP response status to be returned.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<i64>,
+    pub status: i32,
 }
 
 /// Specifies the content of the response body.
@@ -188,12 +187,8 @@ pub struct HTTPFaultInjection {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct Abort {
     /// HTTP status code to use to abort the Http request.
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        rename = "httpStatus"
-    )]
-    pub http_status: Option<i32>,
+    #[serde(rename = "httpStatus")]
+    pub http_status: i32,
     /// GRPC status code to use to abort the request.
     #[serde(
         default,
@@ -216,12 +211,8 @@ pub struct Abort {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct Delay {
     /// Add a fixed delay before forwarding the request.
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        rename = "fixedDelay"
-    )]
-    pub fixed_delay: Option<Duration>,
+    #[serde(rename = "fixedDelay")]
+    pub fixed_delay: Duration,
     /// Percentage of requests on which the delay will be injected.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub percentage: Option<Percent>,
@@ -358,8 +349,7 @@ pub enum RedirectPortSelection {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct HTTPRetry {
     /// Number of retries to be allowed for a given request.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub attempts: Option<i32>,
+    pub attempts: i32,
     /// Timeout per attempt for a given request, including the initial call and any retries.
     #[serde(
         default,
@@ -391,8 +381,7 @@ pub struct HTTPRewrite {
 
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct HTTPRouteDestination {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub destination: Option<Destination>,
+    pub destination: Destination,
     /// Weight specifies the relative proportion of traffic to be forwarded to the destination.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
@@ -403,8 +392,7 @@ pub struct HTTPRouteDestination {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct Destination {
     /// The name of a service from the service registry.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub host: Option<String>,
+    pub host: String,
     /// The name of a subset within the service.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subset: Option<String>,
@@ -480,8 +468,8 @@ pub struct L4MatchAttributes {
 
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct TLSRoute {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "match")]
-    pub r#match: Option<Vec<TLSMatchAttributes>>,
+    #[serde(rename = "match")]
+    pub r#match: Vec<TLSMatchAttributes>,
     /// The destination to which the connection should be forwarded to.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub route: Option<Vec<RouteDestination>>,
@@ -490,8 +478,8 @@ pub struct TLSRoute {
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct TLSMatchAttributes {
     /// SNI (server name indicator) to match on.
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "sniHosts")]
-    pub sni_hosts: Option<Vec<String>>,
+    #[serde(rename = "sniHosts")]
+    pub sni_hosts: Vec<String>,
 
     /// IPv4 or IPv6 ip addresses of destination with optional subnet.
     #[serde(
@@ -524,8 +512,7 @@ pub struct TLSMatchAttributes {
 
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
 pub struct RouteDestination {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub destination: Option<Destination>,
+    pub destination: Destination,
     /// Weight specifies the relative proportion of traffic to be forwarded to the destination.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,

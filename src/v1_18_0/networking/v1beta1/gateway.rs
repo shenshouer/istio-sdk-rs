@@ -18,10 +18,8 @@ use std::collections::BTreeMap;
 #[kube(namespaced)]
 pub struct GatewaySpec {
     /// A list of server specifications.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub servers: Option<Vec<Server>>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub selector: Option<BTreeMap<String, String>>,
+    pub servers: Vec<Server>,
+    pub selector: BTreeMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]

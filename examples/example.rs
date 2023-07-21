@@ -14,17 +14,17 @@ async fn main() -> anyhow::Result<()> {
 
     let list_opt = ListParams::default();
 
-    let gws: Api<Gateway> = Api::namespaced(client.clone(), "my-ns");
+    let gws: Api<Gateway> = Api::namespaced(client.clone(), "default");
     for gw in gws.list(&list_opt).await? {
         println!("Found Gateway: {}", gw.name_any());
     }
 
-    let drs: Api<DestinationRule> = Api::namespaced(client.clone(), "my-ns");
+    let drs: Api<DestinationRule> = Api::namespaced(client.clone(), "default");
     for dr in drs.list(&list_opt).await? {
         println!("Found Destination Rule: {}", dr.name_any());
     }
 
-    let vss: Api<VirtualService> = Api::namespaced(client.clone(), "my-ns");
+    let vss: Api<VirtualService> = Api::namespaced(client.clone(), "default");
     for vs in vss.list(&list_opt).await? {
         let content = serde_yaml::to_string(&vs).unwrap();
         println!("Found Virtual Service with YAML content: {}", content);
