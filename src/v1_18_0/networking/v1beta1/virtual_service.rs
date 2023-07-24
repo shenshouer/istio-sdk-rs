@@ -234,7 +234,7 @@ pub struct Percent {
     pub value: Option<f64>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct HTTPMatchRequest {
     /// The name assigned to a match.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -298,7 +298,7 @@ pub struct HTTPMatchRequest {
     pub stat_prefix: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct StringMatch {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub exact: Option<String>,
@@ -379,7 +379,7 @@ pub struct HTTPRewrite {
     pub uri: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct HTTPRouteDestination {
     pub destination: Destination,
     /// Weight specifies the relative proportion of traffic to be forwarded to the destination.
@@ -389,7 +389,7 @@ pub struct HTTPRouteDestination {
     pub headers: Option<Headers>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct Destination {
     /// The name of a service from the service registry.
     pub host: String,

@@ -22,7 +22,7 @@ pub struct GatewaySpec {
     pub selector: BTreeMap<String, String>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct Server {
     pub port: Port,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -43,7 +43,7 @@ pub struct Server {
     pub name: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct Port {
     /// Label assigned to the port.
     pub name: String,
@@ -60,7 +60,7 @@ pub struct Port {
 }
 
 /// Set of TLS related options that govern the server's behavior.
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema, Default)]
 pub struct ServerTLSSettings {
     #[serde(
         default,
